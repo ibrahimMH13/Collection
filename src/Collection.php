@@ -1,7 +1,7 @@
 <?php
 
 
-class Collection implements Countable,IteratorAggregate
+class Collection implements Countable, IteratorAggregate
 {
 
     /**
@@ -12,7 +12,7 @@ class Collection implements Countable,IteratorAggregate
     public function __construct($items = [])
     {
 
-        $this->items = is_array($items)?$items:$this->getArrayableItem($items);
+        $this->items = is_array($items) ? $items : $this->getArrayableItem($items);
     }
 
     /**
@@ -89,25 +89,29 @@ class Collection implements Countable,IteratorAggregate
         return new static(array_combine($keys, $mapped));
     }
 
-    public function merge($items){
-        return new static(array_merge($this->items,$this->getArrayableItem($items)));
+    public function merge($items)
+    {
+        return new static(array_merge($this->items, $this->getArrayableItem($items)));
     }
-    public function toJson(){
+
+    public function toJson()
+    {
         return json_encode($this->items);
     }
+
     public function __toString()
     {
-      return $this->toJson();
+        return $this->toJson();
     }
 
     public function getIterator()
     {
-      return new ArrayIterator($this->items);
+        return new ArrayIterator($this->items);
     }
 
     private function getArrayableItem($items)
     {
-        if ($items instanceof Collection){
+        if ($items instanceof Collection) {
             return $items->all();
         }
         return $items;
